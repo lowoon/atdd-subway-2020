@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -28,8 +27,6 @@ import wooteco.subway.maps.station.dto.StationResponse;
 
 @WebMvcTest(controllers = {MapController.class})
 public class PathDocumentation extends Documentation {
-    @Autowired
-    private MapController mapController;
     @MockBean
     private MapService mapService;
 
@@ -44,7 +41,7 @@ public class PathDocumentation extends Documentation {
             new StationResponse(1L, "광교중앙역", LocalDateTime.now(), LocalDateTime.now()),
             new StationResponse(2L, "잠실역", LocalDateTime.now(), LocalDateTime.now()));
         PathResponse pathResponse = new PathResponse(stations, 10, 5, 1250);
-        when(mapService.findPath(any(), any(), any())).thenReturn(pathResponse);
+        when(mapService.findPath(any(), any(), any(), any())).thenReturn(pathResponse);
 
         given().log().all().
             contentType(MediaType.APPLICATION_JSON_VALUE).
@@ -76,7 +73,7 @@ public class PathDocumentation extends Documentation {
             new StationResponse(1L, "광교중앙역", LocalDateTime.now(), LocalDateTime.now()),
             new StationResponse(2L, "잠실역", LocalDateTime.now(), LocalDateTime.now()));
         PathResponse pathResponse = new PathResponse(stations, 5, 10, 1250);
-        when(mapService.findPath(any(), any(), any())).thenReturn(pathResponse);
+        when(mapService.findPath(any(), any(), any(), any())).thenReturn(pathResponse);
 
         given().log().all().
             contentType(MediaType.APPLICATION_JSON_VALUE).
