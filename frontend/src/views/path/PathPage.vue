@@ -208,8 +208,11 @@ export default {
   computed: {
     ...mapGetters(['stations', 'pathResult']),
     getCurrentTime() {
-      const {hour, minute} = this.departureTimeView
-      return `${hour > 12 ? '오후' : '오전'} ${hour < 10 ? `0${hour}` : hour}:${minute < 10 ? `0${minute}` : minute}`
+      const time = new Date()
+      const hour = time.getHours()
+      const minute = time.getMinutes()
+      // const {hour, minute} = this.departureTimeView
+      return `${hour > 12 ? '오후' : '오전'} ${hour < 10 ? `0${hour}` : (hour > 12 && hour - 12)}:${minute}`
     }
   },
   async created() {
