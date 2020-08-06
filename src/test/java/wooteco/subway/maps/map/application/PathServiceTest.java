@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.Lists;
@@ -16,6 +17,7 @@ import wooteco.subway.maps.line.domain.Line;
 import wooteco.subway.maps.line.domain.LineStation;
 import wooteco.subway.maps.map.domain.PathType;
 import wooteco.subway.maps.map.domain.SubwayPath;
+import wooteco.subway.maps.map.domain.SubwayPaths;
 import wooteco.subway.maps.station.domain.Station;
 
 public class PathServiceTest {
@@ -70,5 +72,15 @@ public class PathServiceTest {
         assertThat(subwayPath.extractStationId().get(0)).isEqualTo(1L);
         assertThat(subwayPath.extractStationId().get(1)).isEqualTo(2L);
         assertThat(subwayPath.extractStationId().get(2)).isEqualTo(3L);
+    }
+
+    @Test
+    @DisplayName("전체 경로 조회")
+    void findAllPath() {
+        // when
+        SubwayPaths subwayPaths = pathService.findAllPath(lines, 1L, 3L);
+
+        // then
+        assertThat(subwayPaths.getSubwayPaths().size()).isEqualTo(2);
     }
 }
