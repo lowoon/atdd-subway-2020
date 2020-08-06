@@ -5,6 +5,10 @@ import java.util.Objects;
 public class Fare {
     private final int fare;
 
+    public static Fare base() {
+        return new Fare(1250);
+    }
+
     public Fare(int fare) {
         this.fare = fare;
     }
@@ -17,6 +21,10 @@ public class Fare {
             return new Fare(fare + ((distance - 10) / 5) * 100);
         }
         return new Fare(fare + 800 + ((distance - 50) / 8) * 100);
+    }
+
+    public Fare calculateExtraFare(Fare extraFare) {
+        return new Fare(fare + extraFare.fare);
     }
 
     public int getFare() {
