@@ -39,3 +39,7 @@ operation::favorites/delete[snippets='http-request,http-response,request-headers
 
 operation::paths/distance[snippets='http-request,http-response,response-fields']
 
+[[resources-paths-duration]]
+== 최단 시간 조회
+
+operation::paths/duration[snippets='http-request,http-response,response-fields']
