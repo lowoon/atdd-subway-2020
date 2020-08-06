@@ -6,10 +6,18 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Fare implements Comparable<Fare> {
+    public static final int BASE_FARE = 1250;
+    public static final int FIRST_FARE_CRITERIA = 10;
+    public static final int SECOND_FARE_CRITERIA = 50;
+    public static final int FIRST_BILLING_CRITERIA = 5;
+    public static final int BILLING_AMOUNT = 100;
+    public static final int SECOND_BILLING_CRITERIA = 8;
+    public static final int SECOND_DEFAULT_BILLING = 800;
+
     private int fare;
 
     public static Fare base() {
-        return new Fare(1250);
+        return new Fare(BASE_FARE);
     }
 
     public Fare() {
@@ -20,17 +28,22 @@ public class Fare implements Comparable<Fare> {
     }
 
     public Fare calculateFareByDistance(int distance) {
-        if (distance <= 10) {
+        if (distance <= FIRST_FARE_CRITERIA) {
             return new Fare(fare);
         }
-        if (distance <= 50) {
-            return new Fare(fare + ((distance - 10) / 5) * 100);
+        if (distance <= SECOND_FARE_CRITERIA) {
+            return new Fare(fare + ((distance - FIRST_FARE_CRITERIA) / FIRST_BILLING_CRITERIA) * BILLING_AMOUNT);
         }
-        return new Fare(fare + 800 + ((distance - 50) / 8) * 100);
+        return new Fare(fare + SECOND_DEFAULT_BILLING
+            + ((distance - SECOND_FARE_CRITERIA) / SECOND_BILLING_CRITERIA) * BILLING_AMOUNT);
     }
 
     public Fare calculateExtraFare(Fare extraFare) {
         return new Fare(fare + extraFare.fare);
+    }
+
+    public Fare applyDiscount(Discount discount) {
+        return new Fare(discount.applyDiscount(fare));
     }
 
     public int getFare() {

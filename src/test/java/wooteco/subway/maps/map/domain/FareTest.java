@@ -26,4 +26,15 @@ class FareTest {
 
         assertThat(fare.calculateExtraFare(Fare.base()).getFare()).isEqualTo(2500);
     }
+
+    @Test
+    @DisplayName("나이별 할인 적용")
+    void discount() {
+        Fare fare = Fare.base();
+
+        assertAll(
+            () -> assertThat(fare.applyDiscount(Discount.CHILDREN).getFare()).isEqualTo(450),
+            () -> assertThat(fare.applyDiscount(Discount.YOUTH).getFare()).isEqualTo(720)
+        );
+    }
 }
