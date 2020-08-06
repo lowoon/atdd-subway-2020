@@ -43,7 +43,7 @@ public class PathDocumentation extends Documentation {
         List<StationResponse> stations = Arrays.asList(
             new StationResponse(1L, "광교중앙역", LocalDateTime.now(), LocalDateTime.now()),
             new StationResponse(2L, "잠실역", LocalDateTime.now(), LocalDateTime.now()));
-        PathResponse pathResponse = new PathResponse(stations, 10, 5);
+        PathResponse pathResponse = new PathResponse(stations, 10, 5, 1250);
         when(mapService.findPath(any(), any(), any())).thenReturn(pathResponse);
 
         given().log().all().
@@ -65,7 +65,8 @@ public class PathDocumentation extends Documentation {
                     fieldWithPath("stations[1].id").type(JsonFieldType.NUMBER).description("도착역 id"),
                     fieldWithPath("stations[1].name").type(JsonFieldType.STRING).description("도착역 이름"),
                     fieldWithPath("duration").type(JsonFieldType.NUMBER).description("시간"),
-                    fieldWithPath("distance").type(JsonFieldType.NUMBER).description("거리")))).
+                    fieldWithPath("distance").type(JsonFieldType.NUMBER).description("거리"),
+                    fieldWithPath("fare").type(JsonFieldType.NUMBER).description("요금")))).
             extract();
     }
 
@@ -74,7 +75,7 @@ public class PathDocumentation extends Documentation {
         List<StationResponse> stations = Arrays.asList(
             new StationResponse(1L, "광교중앙역", LocalDateTime.now(), LocalDateTime.now()),
             new StationResponse(2L, "잠실역", LocalDateTime.now(), LocalDateTime.now()));
-        PathResponse pathResponse = new PathResponse(stations, 5, 10);
+        PathResponse pathResponse = new PathResponse(stations, 5, 10, 1250);
         when(mapService.findPath(any(), any(), any())).thenReturn(pathResponse);
 
         given().log().all().
@@ -96,7 +97,8 @@ public class PathDocumentation extends Documentation {
                     fieldWithPath("stations[1].id").type(JsonFieldType.NUMBER).description("도착역 id"),
                     fieldWithPath("stations[1].name").type(JsonFieldType.STRING).description("도착역 이름"),
                     fieldWithPath("duration").type(JsonFieldType.NUMBER).description("시간"),
-                    fieldWithPath("distance").type(JsonFieldType.NUMBER).description("거리")))).
+                    fieldWithPath("distance").type(JsonFieldType.NUMBER).description("거리"),
+                    fieldWithPath("fare").type(JsonFieldType.NUMBER).description("요금")))).
             extract();
     }
 }

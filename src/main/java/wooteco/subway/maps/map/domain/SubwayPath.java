@@ -1,9 +1,9 @@
 package wooteco.subway.maps.map.domain;
 
-import com.google.common.collect.Lists;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.google.common.collect.Lists;
 
 public class SubwayPath {
     private List<LineStationEdge> lineStationEdges;
@@ -19,10 +19,14 @@ public class SubwayPath {
     public List<Long> extractStationId() {
         List<Long> stationIds = Lists.newArrayList(lineStationEdges.get(0).getLineStation().getPreStationId());
         stationIds.addAll(lineStationEdges.stream()
-                .map(it -> it.getLineStation().getStationId())
-                .collect(Collectors.toList()));
+            .map(it -> it.getLineStation().getStationId())
+            .collect(Collectors.toList()));
 
         return stationIds;
+    }
+
+    public List<Long> extractLineIds() {
+        return lineStationEdges.stream().map(LineStationEdge::getLineId).collect(Collectors.toList());
     }
 
     public int calculateDuration() {
@@ -32,4 +36,5 @@ public class SubwayPath {
     public int calculateDistance() {
         return lineStationEdges.stream().mapToInt(it -> it.getLineStation().getDistance()).sum();
     }
+
 }

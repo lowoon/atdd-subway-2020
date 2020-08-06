@@ -2,11 +2,17 @@ package wooteco.subway.maps.map.domain;
 
 import java.util.Objects;
 
-public class Fare {
-    private final int fare;
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class Fare implements Comparable<Fare> {
+    private int fare;
 
     public static Fare base() {
         return new Fare(1250);
+    }
+
+    public Fare() {
     }
 
     public Fare(int fare) {
@@ -29,6 +35,15 @@ public class Fare {
 
     public int getFare() {
         return fare;
+    }
+
+    public void setFare(int fare) {
+        this.fare = fare;
+    }
+
+    @Override
+    public int compareTo(Fare o) {
+        return this.fare - o.fare;
     }
 
     @Override
